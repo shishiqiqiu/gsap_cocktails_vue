@@ -20,8 +20,9 @@ import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { navLinks } from "../../constants";
 
+let navTween;
 onMounted(() => {
-  const navTween = gsap.timeline({
+  navTween = gsap.timeline({
     scrollTrigger: {
       trigger: "nav",
       start: "bottom top",
@@ -38,13 +39,11 @@ onMounted(() => {
       ease: "power1.inOut",
     }
   );
-
-  onUnmounted(() => {
-    navTween?.kill();
-
-    ScrollTrigger.getAll().forEach((t) => {
-      t.kill();
-    });
+});
+onUnmounted(() => {
+  navTween?.kill();
+  ScrollTrigger.getAll().forEach((t) => {
+    t.kill();
   });
 });
 </script>

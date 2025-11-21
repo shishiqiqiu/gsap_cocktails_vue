@@ -48,9 +48,11 @@ import { useMediaQuery } from "@vueuse/core";
 
 const videoRef = ref(null);
 const isMobile = useMediaQuery("(max-width: 767px)");
+
+let heroSplit, paragraphSplit;
 onMounted(() => {
-  const heroSplit = new SplitText(".title", { type: "chars, words" });
-  const paragraphSplit = new SplitText(".subtitle", { type: "lines" });
+  heroSplit = new SplitText(".title", { type: "chars, words" });
+  paragraphSplit = new SplitText(".subtitle", { type: "lines" });
 
   heroSplit.chars.forEach((char) => char.classList.add("text-gradient"));
 
@@ -100,12 +102,14 @@ onMounted(() => {
       currentTime: videoRef.value.duration,
     });
   };
-  
-  // Cleanup when component unmounts
-  onUnmounted(() => {
-    heroSplit.revert();
-    paragraphSplit.revert();
-    ScrollTrigger.getAll().forEach((t) => t.kill());
-  });
 });
+
+// Cleanup when component unmounts
+onUnmounted(() => {
+  heroSplit.revert();
+  paragraphSplit.revert();
+  ScrollTrigger.getAll().forEach((t) => t.kill());
+});
+
+
 </script>
