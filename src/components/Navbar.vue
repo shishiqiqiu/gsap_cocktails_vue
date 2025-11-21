@@ -15,8 +15,9 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { gsap } from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import { navLinks } from "../../constants";
 
 onMounted(() => {
@@ -37,5 +38,13 @@ onMounted(() => {
       ease: "power1.inOut",
     }
   );
+
+  onUnmounted(() => {
+    navTween?.kill();
+
+    ScrollTrigger.getAll().forEach((t) => {
+      t.kill();
+    });
+  });
 });
 </script>

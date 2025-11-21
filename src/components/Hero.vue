@@ -28,13 +28,26 @@
       </div>
     </div>
   </section>
+  <div class="video absolute inset-0">
+    <video
+      ref="videoRef"
+      src="/videos/output.mp4"
+      muted
+      playsInline
+      preload="auto"
+    ></video>
+  </div>
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import { gsap } from "gsap";
-import { ScrollTrigger, SplitText } from "gsap/all";
+import { SplitText } from "gsap/all";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { useMediaQuery } from "@vueuse/core";
 
+const videoRef = ref(null);
+const isMobile = useMediaQuery("(max-width: 767px)");
 onMounted(() => {
   const heroSplit = new SplitText(".title", { type: "chars, words" });
   const paragraphSplit = new SplitText(".subtitle", { type: "lines" });
@@ -68,5 +81,31 @@ onMounted(() => {
     })
     .to(".right-leaf", { y: 200 }, 0)
     .to(".left-leaf", { y: -200 }, 0);
+
+  const startValue = isMobile.value ? "top 50%" : "center 60%";
+  const endValue = isMobile.value ? "120% top" : "bottom top";
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "video",
+      start: startValue,
+      end: endValue,
+      scrub: true,
+      pin: true,
+    },
+  });
+
+  videoRef.value.onloadedmetadata = () => {
+    tl.to(videoRef.value, {
+      currentTime: videoRef.value.duration,
+    });
+  };
+  
+  // Cleanup when component unmounts
+  onUnmounted(() => {
+    heroSplit.revert();
+    paragraphSplit.revert();
+    ScrollTrigger.getAll().forEach((t) => t.kill());
+  });
 });
 </script>
