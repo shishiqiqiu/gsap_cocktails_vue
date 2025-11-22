@@ -56,10 +56,11 @@ import { onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
 
+let titleSplit, scrollTimeline;
 onMounted(() => {
-  const titleSplit = SplitText.create("#about h2", { type: "words" });
+  titleSplit = SplitText.create("#about h2", { type: "words" });
 
-  const scrollTimeline = gsap.timeline({
+  scrollTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: "#about",
       start: "top center",
@@ -85,5 +86,9 @@ onMounted(() => {
       "-=0.5"
     );
 });
-onUnmounted(() => {});
+onUnmounted(() => {
+  if (titleSplit) {
+    titleSplit.revert();
+  }
+});
 </script>
