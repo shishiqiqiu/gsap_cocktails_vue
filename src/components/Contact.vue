@@ -35,7 +35,7 @@
             target="_blank"
             rel="noopener noreferrer"
             :aria-label="social.name"
-            ><AppImage :src="social.icon" />
+            ><AppImage :src="social.icon"
           /></a>
         </div>
       </div>
