@@ -10,13 +10,13 @@
             :key="index"
             class="flex items-center gap-2"
           >
-            <img src="/images/check.png" alt="check" />
+            <AppImage src="/images/check.png" alt="check" />
             <p>{{ feature }}</p>
           </li>
         </ul>
 
         <div class="cocktail-img">
-          <img
+          <AppImage
             src="/images/under-img.jpg"
             alt="cocktail"
             class="abs-center masked-img size-full object-contain"
@@ -29,7 +29,7 @@
             :key="index"
             class="flex items-center justify-start gap-2"
           >
-            <img src="/images/check.png" alt="check" />
+            <AppImage src="/images/check.png" alt="check" />
             <p class="md:w-fit w-60">{{ feature }}</p>
           </li>
         </ul>
@@ -49,42 +49,49 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue";
+import { onMounted, onUnmounted } from "vue";
 import { useMediaQuery } from "@vueuse/core";
 import gsap from "gsap";
 import { featureLists, goodLists } from "../../constants";
+import AppImage from "./AppImage.vue";
 
 const isMobile = useMediaQuery("(max-width: 767px)");
+let ctx;
 onMounted(() => {
-  const start = isMobile.value ? "top 20%" : "top top";
+  ctx = gsap.context(() => {
+    const start = isMobile.value ? "top 20%" : "top top";
 
-  const maskTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#art",
-      start,
-      end: "bottom center",
-      scrub: 1.5,
-      pin: true,
-    },
-  });
-
-  maskTimeline
-    .to(".will-fade", {
-      opacity: 0,
-      stagger: 0.2,
-      ease: "power1.inOut",
-    })
-    .to(".masked-img", {
-      scale: 1.3,
-      maskPosition: "center",
-      maskSize: "400%",
-      duration: 1,
-      ease: "power1.inOut",
-    })
-    .to("#masked-content", {
-      opacity: 1,
-      duration: 1,
-      ease: "power1.inOut",
+    const maskTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#art",
+        start,
+        end: "bottom center",
+        scrub: 1.5,
+        pin: true,
+      },
     });
+
+    maskTimeline
+      .to(".will-fade", {
+        opacity: 0,
+        stagger: 0.2,
+        ease: "power1.inOut",
+      })
+      .to(".masked-img", {
+        scale: 1.3,
+        maskPosition: "center",
+        maskSize: "400%",
+        duration: 1,
+        ease: "power1.inOut",
+      })
+      .to("#masked-content", {
+        opacity: 1,
+        duration: 1,
+        ease: "power1.inOut",
+      });
+  });
+});
+onUnmounted(() => {
+  ctx?.revert();
 });
 </script>

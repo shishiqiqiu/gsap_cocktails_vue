@@ -1,7 +1,7 @@
 <template>
   <section id="cocktails" class="noisy">
-    <img src="/images/cocktail-left-leaf.png" alt="l-leaf" id="c-left-leaf" />
-    <img src="/images/cocktail-right-leaf.png" alt="r-leaf" id="c-right-leaf" />
+    <AppImage src="/images/cocktail-left-leaf.png" alt="l-leaf" id="c-left-leaf" />
+    <AppImage src="/images/cocktail-right-leaf.png" alt="r-leaf" id="c-right-leaf" />
 
     <div class="list">
       <div class="popular">
@@ -45,6 +45,7 @@
 import { onMounted, onUnmounted } from "vue";
 import { gsap } from "gsap";
 import { cocktailLists, mockTailLists } from "../../constants";
+import AppImage from "./AppImage.vue";
 let parallaxTimeline;
 onMounted(() => {
   parallaxTimeline = gsap.timeline({

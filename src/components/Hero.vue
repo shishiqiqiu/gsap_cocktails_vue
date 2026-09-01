@@ -2,8 +2,8 @@
   <section id="hero" class="noisy">
     <h1 class="title">MOJITO</h1>
 
-    <img src="/images/hero-left-leaf.png" alt="left-leaf" class="left-leaf" />
-    <img
+    <AppImage src="/images/hero-left-leaf.png" alt="left-leaf" class="left-leaf" />
+    <AppImage
       src="/images/hero-right-leaf.png"
       alt="right-leaf"
       class="right-leaf"
@@ -45,6 +45,7 @@ import { gsap } from "gsap";
 import { SplitText } from "gsap/all";
 import ScrollTrigger from "gsap/ScrollTrigger";
 import { useMediaQuery } from "@vueuse/core";
+import AppImage from "./AppImage.vue";
 
 const videoRef = ref(null);
 const isMobile = useMediaQuery("(max-width: 767px)");

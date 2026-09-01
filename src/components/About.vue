@@ -25,27 +25,27 @@
     <div class="top-grid">
       <div class="md:col-span-3">
         <div class="noisy"></div>
-        <img src="/images/abt1.png" alt="grid-img-1" />
+        <AppImage src="/images/abt1.png" alt="grid-img-1" />
       </div>
 
       <div class="md:col-span-6">
         <div class="noisy"></div>
-        <img src="/images/abt2.png" alt="grid-img-2" />
+        <AppImage src="/images/abt2.png" alt="grid-img-2" />
       </div>
 
       <div class="md:col-span-3">
         <div class="noisy"></div>
-        <img src="/images/abt5.png" alt="grid-img-3" />
+        <AppImage src="/images/abt5.png" alt="grid-img-3" />
       </div>
     </div>
     <div class="bottom-grid">
       <div class="md:col-span-8">
         <div class="noisy"></div>
-        <img src="/images/abt3.png" alt="grid-img-4" />
+        <AppImage src="/images/abt3.png" alt="grid-img-4" />
       </div>
       <div class="md:col-span-4">
         <div class="noisy"></div>
-        <img src="/images/abt4.png" alt="grid-img-5" />
+        <AppImage src="/images/abt4.png" alt="grid-img-5" />
       </div>
     </div>
   </div>
@@ -55,40 +55,42 @@
 import { onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 import { SplitText } from "gsap/all";
+import AppImage from "./AppImage.vue";
 
-let titleSplit, scrollTimeline;
+let ctx, titleSplit, scrollTimeline;
 onMounted(() => {
-  titleSplit = SplitText.create("#about h2", { type: "words" });
+  ctx = gsap.context(() => {
+    titleSplit = SplitText.create("#about h2", { type: "words" });
 
-  scrollTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#about",
-      start: "top center",
-    },
-  });
+    scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#about",
+        start: "top center",
+      },
+    });
 
-  scrollTimeline
-    .from(titleSplit.words, {
-      opacity: 0,
-      duration: 1,
-      yPercent: 100,
-      ease: "expo.out",
-      stagger: 0.02,
-    })
-    .from(
-      ".top-grid div, .bottom-grid div",
-      {
+    scrollTimeline
+      .from(titleSplit.words, {
         opacity: 0,
         duration: 1,
-        ease: "power1.inOut",
-        stagger: 0.04,
-      },
-      "-=0.5"
-    );
+        yPercent: 100,
+        ease: "expo.out",
+        stagger: 0.02,
+      })
+      .from(
+        ".top-grid div, .bottom-grid div",
+        {
+          opacity: 0,
+          duration: 1,
+          ease: "power1.inOut",
+          stagger: 0.04,
+        },
+        "-=0.5"
+      );
+  });
 });
 onUnmounted(() => {
-  if (titleSplit) {
-    titleSplit.revert();
-  }
+  titleSplit?.revert();
+  ctx?.revert();
 });
 </script>

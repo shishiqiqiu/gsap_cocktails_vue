@@ -1,18 +1,19 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap");
-
 @import "tailwindcss";
 
 @font-face {
   font-family: "Modern Negra";
   src: url("/fonts/Modern Negra Demo.ttf") format("truetype");
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
 }
 
 @theme {
   --color-yellow: #e7d393;
   --color-white-100: #efefef;
-  --font-sans: "Mona Sans", sans-serif;
+  --font-sans: "Mona Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-modern-negra: "Modern Negra", sans-serif;
-  --font-serif: "DM Serif Text", serif;
+  --font-serif: "DM Serif Text", Georgia, "Times New Roman", serif;
 }
 
 html,
@@ -53,7 +54,16 @@ body {
 }
 
 @utility masked-img {
+  -webkit-mask-image: url("/images/mask-img.png");
+  -webkit-mask-image: -webkit-image-set(
+    url("/images/mask-img.webp") 1x,
+    url("/images/mask-img.png") 1x
+  );
   mask-image: url("/images/mask-img.png");
+  mask-image: image-set(
+    url("/images/mask-img.webp") 1x,
+    url("/images/mask-img.png") 1x
+  );
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: 50%;
@@ -85,7 +95,16 @@ body {
   }
 
   .noisy {
-    @apply absolute inset-0 size-full bg-[url("/images/noise.png")];
+    @apply absolute inset-0 size-full;
+    background-image: url("/images/noise.png");
+    background-image: -webkit-image-set(
+      url("/images/noise.webp") 1x,
+      url("/images/noise.png") 1x
+    );
+    background-image: image-set(
+      url("/images/noise.webp") 1x,
+      url("/images/noise.png") 1x
+    );
   }
 
   #hero {
