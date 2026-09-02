@@ -5,7 +5,11 @@
       alt="leaf-right"
       id="f-right-leaf"
     />
-    <AppImage src="/images/footer-left-leaf.png" alt="leaf-left" id="f-left-leaf" />
+    <AppImage
+      src="/images/footer-left-leaf.png"
+      alt="leaf-left"
+      id="f-left-leaf"
+    />
     <div class="content">
       <h2>Where to Find Us</h2>
       <div>
@@ -39,6 +43,24 @@
           /></a>
         </div>
       </div>
+    </div>
+    <div
+      style="
+        text-align: center;
+        padding: 15px 0;
+        font-size: 13px;
+        color: #999;
+        border-top: 1px solid #555;
+        margin-top: 30px;
+      "
+    >
+      <a
+        href="https://beian.miit.gov.cn"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="color: #888; text-decoration: none"
+        >粤ICP备2026110148号-1</a
+      >
     </div>
   </footer>
 </template>
@@ -86,7 +108,7 @@ onMounted(() => {
           duration: 1,
           ease: "power1.inOut",
         },
-        "<"
+        "<",
       );
   });
 });
